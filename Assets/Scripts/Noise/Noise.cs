@@ -5,7 +5,7 @@
 /// </summary>
 public static class Noise
 {
-    public enum NoiseEvaluationMethod { Default, Random, Perlin, Simplex }
+    public enum NoiseEvaluationMethod { Default, Random, Perlin, Simplex  }
 
     private static NoiseEvaluationMethod defaultNoiseEvaluationMethod = NoiseEvaluationMethod.Perlin;
     /// <summary>
