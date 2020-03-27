@@ -10,9 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38c20a5b7b7ab8743ba35ce3e818e801, type: 3}
-  m_Name: Generator Settings
+  m_Name: Default Generator Settings
   m_EditorClassIdentifier: 
-  seed:
-    seedMethod: 0
-    seedString: 
-    calculatedSeed: 0
+  seed: {fileID: 11400000, guid: dafb9221c9da1d443bb2ae2a9f82c9cb, type: 2}

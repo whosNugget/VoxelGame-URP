@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cace2c4147157b14eb49aef5ee1f11d2, type: 3}
   m_Name: Default Generator Seed
   m_EditorClassIdentifier: 
-  seedMethod: 0
-  seedString: 
+  seedMethod: 2
+  seedString: Default Seed
   calculatedSeed: 0
