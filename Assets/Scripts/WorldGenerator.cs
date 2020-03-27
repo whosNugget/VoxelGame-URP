@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 
-public class WorldGenerator : MonoBehaviour
+public class WorldGenerator : Singleton<WorldGenerator>
 {
-    [Tooltip("Prefab to be used in the event a world will be generated using prefabs over a dynamic mesh system (unlikely unless using ECS, DOTS, the Job System and Burst)")]
-    public GameObject voxel;
+    [Tooltip("Square size of each generated mesh. Cannot be larger than 255, as Unity has a mesh vertex limit of ~65,500"), Range(1, 255)]
+    public int cubicSize = 1;
 
-    [Tooltip("Square size of each generated mesh. Cannot be larger than 255, as Unity has a mesh vertex limit of ~65,500")]
-    [Range(1, 255)]int cubicSize = 1;
+    [Tooltip("Seed used when generating world")]
+    public Seed generatorSeed;
+
+    [Tooltip("Auto-update generation on inspector changes")]
+    public bool autoUpdate = true;
 
     private void Start()
     {
@@ -15,5 +18,13 @@ public class WorldGenerator : MonoBehaviour
             {
                 
             }
+    }
+
+    private void OnValidate()
+    {
+        if (autoUpdate)
+        {
+            generatorSeed.Process();
+        }
     }
 }
