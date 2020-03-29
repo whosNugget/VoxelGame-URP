@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "World Generation", menuName = "Generation Settings")]
+[CreateAssetMenu(fileName = "Generation", menuName = "WorldGenData/Generator Settings")]
 public class GeneratorSettings : ScriptableObject
 {
     public Seed seed;

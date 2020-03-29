@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class WorldGenerator : Singleton<WorldGenerator>
+public class WorldGenerator : MonoBehaviour
 {
     [Tooltip("Square size of each generated mesh. Cannot be larger than 255, as Unity has a mesh vertex limit of ~65,500"), Range(1, 255)]
     public int cubicSize = 1;

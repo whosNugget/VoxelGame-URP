@@ -5,8 +5,8 @@ using UnityEngine;
 /// <summary>
 /// Instance of seed which stores a string and its corresponding calculated 32-bit signed integer representation of a seed
 /// </summary>
-[CreateAssetMenu(fileName = "Generation Seed", menuName = "World Generation")]
-public class Seed : ScriptableObject
+[Serializable]
+public class Seed
 {
     public enum SeedMethod { CompoundAdd, CompoundAddSubtract, StringHash }
 
