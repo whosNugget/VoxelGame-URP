@@ -2,24 +2,62 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct Chunk
+public class Chunk : MonoBehaviour
 {
-    Vector3 positionInWorld;
 
-    Block[,,] blockData;
+    public MeshRenderer meshRenderer;
+    public MeshFilter meshFilter;
 
-    public Block? this[int x, int y, int z]
+    int vertexIndex = 0;
+    List<Vector3> vertices = new List<Vector3>();
+    List<int> triangles = new List<int>();
+    List<Vector2> uvs = new List<Vector2>();
+
+    bool[,,] voxelMap = new bool[VoxelData.chunkWidth, VoxelData.chunkHeight, VoxelData.chunkWidth];
+
+    private void Start()
     {
-        get { return GetBlockAt(x, y, z); }
+        for (int y = 0; y < VoxelData.chunkHeight; y++)
+            for (int x = 0; x < VoxelData.chunkWidth; x++)
+                for (int z = 0; z < VoxelData.chunkWidth; z++)
+                    AddVoxelDataToChunk(new Vector3(x, y, z));
+
+        GenerateChunkMesh();
     }
 
-    public Block? GetBlockAt(int x, int y, int z)
+    void PopulateVoxelMap()
     {
-        if (x < 0 || y < 0 || z < 0) return null;
+        for (int y = 0; y < VoxelData.chunkHeight; y++)
+            for (int x = 0; x < VoxelData.chunkWidth; x++)
+                for (int z = 0; z < VoxelData.chunkWidth; z++)
+                {
+                    voxelMap[x, y, z] = true;
+                }
+    }
 
-        int xLength = blockData.GetLength(0), yLength = blockData.GetLength(1), zLength = blockData.GetLength(2);
-        if (x >= xLength || y >= yLength || z >= zLength) return null;
+    void AddVoxelDataToChunk(Vector3 position)
+    {
+        for (int x = 0; x < 6; x++)
+            for (int y = 0; y < 6; y++)
+            {
+                int triangleIndex = VoxelData.voxelTris[x, y];
+                vertices.Add(VoxelData.voxelVerts[triangleIndex] + position);
+                triangles.Add(vertexIndex);
+                vertexIndex++;
 
-        return blockData[x, y, z];
+                uvs.Add(VoxelData.voxelUvs[y]);
+            }
+    }
+
+    void GenerateChunkMesh()
+    {
+        Mesh mesh = new Mesh
+        {
+            vertices = vertices.ToArray(),
+            triangles = triangles.ToArray(),
+            uv = uvs.ToArray(),
+        };
+        mesh.RecalculateNormals();
+        meshFilter.mesh = mesh;
     }
 }
